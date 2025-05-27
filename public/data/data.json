@@ -1,0 +1,175 @@
+[
+  {
+    "id": 1,
+    "nombre": "Cactus San Pedro",
+    "categoria": "Cactáceas",
+    "precio": 12500,
+    "stock": 8,
+    "imagen": "https://cdn0.uncomo.com/es/posts/2/1/9/como_elegir_el_sitio_para_plantar_el_cactus_san_pedro_la_ubicacion_48912_1_600.jpg",
+    "descripcion": "Cactus columnar de crecimiento rápido, ideal para jardines secos."
+  },
+  {
+    "id": 2,
+    "nombre": "Árbol de Jade Mini",
+    "categoria": "Arból de jade",
+    "precio": 7500,
+    "stock": 15,
+    "imagen": "https://hips.hearstapps.com/hmg-prod/images/gettyimages-1129857353-660be233847ab.jpg?resize=980:*",
+    "destacado": true
+  },
+  {
+    "id": 3,
+    "nombre": "Lengua de Suegra Variegada",
+    "categoria": "Lengua de suegra",
+    "precio": 8900,
+    "stock": 12,
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn2D1Ji56c1c_tvHyNx7n00HscyiDvNnZ1jQ&s"
+  },
+  {
+    "id": 4,
+    "nombre": "Sedum Morganianum",
+    "categoria": "Sedum",
+    "precio": 10200,
+    "stock": 5,
+    "imagen": "https://todoparatuhuerta.com/wp-content/uploads/2020/09/Sedum-morganianum-1200x1200.jpg",
+    "descripcion": "Conocida como 'Cola de Burro', perfecta para macetas colgantes."
+  },
+  {
+    "id": 5,
+    "nombre": "Echeveria Azul",
+    "categoria": "Echeveria",
+    "precio": 6800,
+    "stock": 20,
+    "imagen": "https://todoparatuhuerta.com/wp-content/uploads/2021/06/Echeveria-Blue-Bird.jpg",
+    "descuento": 10
+  },
+  {
+    "id": 6,
+    "nombre": "Cactus Oreja de Mickey",
+    "categoria": "Cactáceas",
+    "precio": 5500,
+    "stock": 0,
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkPLMZqMI2mrVD_-fHmfwmpM_Z81hYKho3Xg&s",
+    "agotado": true
+  },
+  {
+    "id": 7,
+    "nombre": "Crassula Ovata",
+    "categoria": "Arból de jade",
+    "precio": 8200,
+    "stock": 7,
+    "imagen": "/img/crassula-ovata.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Sansevieria Cylindrica",
+    "categoria": "Lengua de suegra",
+    "precio": 11000,
+    "stock": 9,
+    "imagen": "/img/sansevieria-cylindrica.jpg",
+    "destacado": true
+  },
+  {
+    "id": 9,
+    "nombre": "Sedum Rubrotinctum",
+    "categoria": "Sedum",
+    "precio": 6500,
+    "stock": 14,
+    "imagen": "/img/sedum-rubrotinctum.jpg",
+    "descripcion": "También llamada 'Planta de los Frijoles'. Cambia a rojo con sol directo."
+  },
+  {
+    "id": 10,
+    "nombre": "Echeveria Black Prince",
+    "categoria": "Echeveria",
+    "precio": 9500,
+    "stock": 3,
+    "imagen": "/img/echeveria-black-prince.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Cactus Barril Dorado",
+    "categoria": "Cactáceas",
+    "precio": 7800,
+    "stock": 11,
+    "imagen": "/img/cactus-barril-dorado.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Árbol de Jade Gigante",
+    "categoria": "Arból de jade",
+    "precio": 18500,
+    "stock": 2,
+    "imagen": "/img/arbol-jade-gigante.jpg",
+    "descripcion": "Ejemplar adulto de más de 40 cm de altura."
+  },
+  {
+    "id": 13,
+    "nombre": "Lengua de Suegra Compacta",
+    "categoria": "Lengua de suegra",
+    "precio": 7200,
+    "stock": 18,
+    "imagen": "/img/lengua-suegra-compacta.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Sedum Adolphii",
+    "categoria": "Sedum",
+    "precio": 5800,
+    "stock": 6,
+    "imagen": "/img/sedum-adolphii.jpg",
+    "descuento": 15
+  },
+  {
+    "id": 15,
+    "nombre": "Echeveria Lola",
+    "categoria": "Echeveria",
+    "precio": 8700,
+    "stock": 10,
+    "imagen": "/img/echeveria-lola.jpg",
+    "destacado": true
+  },
+  {
+    "id": 16,
+    "nombre": "Cactus Estrella",
+    "categoria": "Cactáceas",
+    "precio": 4900,
+    "stock": 4,
+    "imagen": "/img/cactus-estrella.jpg"
+  },
+  {
+    "id": 17,
+    "nombre": "Crassula Gollum",
+    "categoria": "Arból de jade",
+    "precio": 9300,
+    "stock": 13,
+    "imagen": "/img/crassula-gollum.jpg",
+    "descripcion": "Variedad con hojas tubulares que parecen dedos."
+  },
+  {
+    "id": 18,
+    "nombre": "Sansevieria Moonshine",
+    "categoria": "Lengua de suegra",
+    "precio": 10500,
+    "stock": 7,
+    "imagen": "/img/sansevieria-moonshine.jpg"
+  },
+  {
+    "id": 19,
+    "nombre": "Sedum Nussbaumerianum",
+    "categoria": "Sedum",
+    "precio": 7700,
+    "stock": 9,
+    "imagen": "/img/sedum-nussbaumerianum.jpg",
+    "descripcion": "Sus hojas adquieren tonos anaranjados con buena iluminación."
+  },
+  {
+    "id": 20,
+    "nombre": "Echeveria Topsy Turvy",
+    "categoria": "Echeveria",
+    "precio": 6900,
+    "stock": 16,
+    "imagen": "/img/echeveria-topsy-turvy.jpg",
+    "descuento": 20
+  }
+]
