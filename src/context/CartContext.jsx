@@ -65,10 +65,20 @@ export const CartProvider = ({ children }) => {
         );
     };
 
+    const actualizarCantidad = (producto, cambio) => {
+    setCart((prevCart) =>
+        prevCart.map((item) =>
+            item.id === producto.id
+                ? { ...item, quantity: Math.max(1, item.quantity + cambio) }
+                : item
+        )
+    );
+};
+
 
 
     return (
-        <CartContext.Provider value={{cart, productos, cargando, error, handleAddToCart, handDeleteFromCart, isAuthenticated}}>
+        <CartContext.Provider value={{cart, productos, cargando, error, handleAddToCart, handDeleteFromCart, actualizarCantidad, isAuthenticated}}>
             {children}
         </CartContext.Provider>
     )

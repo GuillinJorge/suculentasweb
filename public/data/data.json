@@ -58,7 +58,7 @@
     "categoria": "Arból de jade",
     "precio": 8200,
     "stock": 7,
-    "imagen": "/img/crassula-ovata.jpg"
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHWzCFXFW6MnsSEgtJ5lj4P0eLV4xklBDByQ&s"
   },
   {
     "id": 8,
@@ -66,7 +66,7 @@
     "categoria": "Lengua de suegra",
     "precio": 11000,
     "stock": 9,
-    "imagen": "/img/sansevieria-cylindrica.jpg",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRmio8IKozaLry9amJ4WN_GNixYOkZlfNMZg&s",
     "destacado": true
   },
   {
@@ -75,7 +75,7 @@
     "categoria": "Sedum",
     "precio": 6500,
     "stock": 14,
-    "imagen": "/img/sedum-rubrotinctum.jpg",
+    "imagen": "https://todoparatuhuerta.com/wp-content/uploads/2020/08/Sedum-rubrotinctum-3-1200x1200.jpg",
     "descripcion": "También llamada 'Planta de los Frijoles'. Cambia a rojo con sol directo."
   },
   {
@@ -84,7 +84,7 @@
     "categoria": "Echeveria",
     "precio": 9500,
     "stock": 3,
-    "imagen": "/img/echeveria-black-prince.jpg"
+    "imagen": "https://www.picturethisai.com/wiki-image/1080/223902911503335424.jpeg"
   },
   {
     "id": 11,
@@ -92,7 +92,7 @@
     "categoria": "Cactáceas",
     "precio": 7800,
     "stock": 11,
-    "imagen": "/img/cactus-barril-dorado.jpg"
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5f5w_5YYdIUWpHnZh2Vohee8thxlsqAvong&s"
   },
   {
     "id": 12,
@@ -100,7 +100,7 @@
     "categoria": "Arból de jade",
     "precio": 18500,
     "stock": 2,
-    "imagen": "/img/arbol-jade-gigante.jpg",
+    "imagen": "https://lasfloresdelpato.com.ar/wp-content/uploads/2024/10/Captura-de-pantalla-2024-10-28-103109.png",
     "descripcion": "Ejemplar adulto de más de 40 cm de altura."
   },
   {
@@ -109,7 +109,7 @@
     "categoria": "Lengua de suegra",
     "precio": 7200,
     "stock": 18,
-    "imagen": "/img/lengua-suegra-compacta.jpg"
+    "imagen": "https://planta.do/cdn/shop/products/sansiveria-enana-634553_1200x.jpg?v=1699295025"
   },
   {
     "id": 14,
@@ -117,7 +117,7 @@
     "categoria": "Sedum",
     "precio": 5800,
     "stock": 6,
-    "imagen": "/img/sedum-adolphii.jpg",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIx4J05thByIRDA1svDYXIp90Kylp441O4Ug&s",
     "descuento": 15
   },
   {
@@ -126,7 +126,7 @@
     "categoria": "Echeveria",
     "precio": 8700,
     "stock": 10,
-    "imagen": "/img/echeveria-lola.jpg",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-wvCnaafDmcgDAWJMGt_vRwMjk8NAJqJ2mw&s",
     "destacado": true
   },
   {
@@ -135,7 +135,7 @@
     "categoria": "Cactáceas",
     "precio": 4900,
     "stock": 4,
-    "imagen": "/img/cactus-estrella.jpg"
+    "imagen": "https://www.guiadejardineria.com/wp-content/uploads/2014/12/Astrophytum-ornatum-4.jpg"
   },
   {
     "id": 17,
@@ -143,7 +143,7 @@
     "categoria": "Arból de jade",
     "precio": 9300,
     "stock": 13,
-    "imagen": "/img/crassula-gollum.jpg",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd2ziWezKggyALsD7OGmD5yiQFDXa8DAJKbg&s",
     "descripcion": "Variedad con hojas tubulares que parecen dedos."
   },
   {
@@ -152,7 +152,7 @@
     "categoria": "Lengua de suegra",
     "precio": 10500,
     "stock": 7,
-    "imagen": "/img/sansevieria-moonshine.jpg"
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuilneCgEF0y_oTyLqnFBJ45qdkJk_jycrvQ&s"
   },
   {
     "id": 19,
@@ -160,7 +160,7 @@
     "categoria": "Sedum",
     "precio": 7700,
     "stock": 9,
-    "imagen": "/img/sedum-nussbaumerianum.jpg",
+    "imagen": "https://plantasflores.com/cactaceas-suculento/wp-content/uploads/sites/7/2021/11/Sedum-nussbaumerianum.jpg",
     "descripcion": "Sus hojas adquieren tonos anaranjados con buena iluminación."
   },
   {
@@ -169,7 +169,7 @@
     "categoria": "Echeveria",
     "precio": 6900,
     "stock": 16,
-    "imagen": "/img/echeveria-topsy-turvy.jpg",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy1HuFZiv-Caf4tv_1bKOk5W-_5xCarY2Nsg&s",
     "descuento": 20
   }
 ]

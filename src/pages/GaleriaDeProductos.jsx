@@ -6,6 +6,8 @@ import Cart from "../components/Cart";
 import ToastSimple from "../components/ToastSimple";
 import loading from "../assets/loading.gif";
 
+
+
 const GaleriaDeProductos = ({ productos, cargando }) => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("todos");
   const [orden, setOrden] = useState(null);
@@ -23,6 +25,9 @@ const GaleriaDeProductos = ({ productos, cargando }) => {
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(cartItems));
   }, [cartItems]);
+
+  const abrirCarrito = () => setIsCartOpen(true);
+
 
   const agregarAlCarrito = (producto) => {
     const existente = cartItems.find(item => item.id === producto.id);
@@ -74,79 +79,78 @@ const GaleriaDeProductos = ({ productos, cargando }) => {
 
   return (
     <>
-      <Header borrarProductos={borrarProductoDelCarrito} cartItems={cartItems} />
+      <Header borrarProductos={borrarProductoDelCarrito} cartItems={cartItems} abrirCarrito={abrirCarrito} />
 
-     
 
       <main className="galeria-main">
         <h1>Tienda</h1>
 
-       <div className="menu-filtros-container">
-        <button
-          className="toggle-sidebar"
-          onClick={() => setMostrarMenuFiltros(!mostrarMenuFiltros)}
-        >
-          ☰ Ordenar y filtar
-        </button>
+        <div className="menu-filtros-container">
+          <button
+            className="toggle-sidebar"
+            onClick={() => setMostrarMenuFiltros(!mostrarMenuFiltros)}
+          >
+            ☰ Ordenar y filtar
+          </button>
 
-        {mostrarMenuFiltros && (
-          <div className="menu-filtros-dropdown">
-            <h4>Filtrar por categoría</h4>
-            {["todos", "Cactáceas", "Arból de jade", "Lengua de suegra", "Sedum","Echeveria"].map((cat) => (
+          {mostrarMenuFiltros && (
+            <div className="menu-filtros-dropdown">
+              <h4>Filtrar por categoría</h4>
+              {["todos", "Cactáceas", "Arból de jade", "Lengua de suegra", "Sedum", "Echeveria"].map((cat) => (
+                <button
+                  key={cat}
+                  className={categoriaSeleccionada === cat ? "active" : ""}
+                  onClick={() => {
+                    setCategoriaSeleccionada(cat);
+                    setMostrarMenuFiltros(false);
+                  }}
+                >
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </button>
+              ))}
+
+              <hr />
+
+              <h4>Ordenar por</h4>
               <button
-                key={cat}
-                className={categoriaSeleccionada === cat ? "active" : ""}
+                className={orden === "precio-asc" ? "active" : ""}
                 onClick={() => {
-                  setCategoriaSeleccionada(cat);
+                  setOrden("precio-asc");
                   setMostrarMenuFiltros(false);
                 }}
               >
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                Precio más alto ↑
               </button>
-            ))}
-
-            <hr />
-
-            <h4>Ordenar por</h4>
-            <button
-              className={orden === "precio-asc" ? "active" : ""}
-              onClick={() => {
-                setOrden("precio-asc");
-                setMostrarMenuFiltros(false);
-              }}
-            >
-              Precio más alto ↑
-            </button>
-            <button
-              className={orden === "precio-desc" ? "active" : ""}
-              onClick={() => {
-                setOrden("precio-desc");
-                setMostrarMenuFiltros(false);
-              }}
-            >
-              Precio más bajo ↓
-            </button>
-            <button
-              className={orden === "stock-asc" ? "active" : ""}
-              onClick={() => {
-                setOrden("stock-asc");
-                setMostrarMenuFiltros(false);
-              }}
-            >
-              Mayor Stock ↑
-            </button>
-            <button
-              className={orden === "stock-desc" ? "active" : ""}
-              onClick={() => {
-                setOrden("stock-desc");
-                setMostrarMenuFiltros(false);
-              }}
-            >
-              Menor Stock ↓
-            </button>
-          </div>
-        )}
-      </div>
+              <button
+                className={orden === "precio-desc" ? "active" : ""}
+                onClick={() => {
+                  setOrden("precio-desc");
+                  setMostrarMenuFiltros(false);
+                }}
+              >
+                Precio más bajo ↓
+              </button>
+              <button
+                className={orden === "stock-asc" ? "active" : ""}
+                onClick={() => {
+                  setOrden("stock-asc");
+                  setMostrarMenuFiltros(false);
+                }}
+              >
+                Mayor Stock ↑
+              </button>
+              <button
+                className={orden === "stock-desc" ? "active" : ""}
+                onClick={() => {
+                  setOrden("stock-desc");
+                  setMostrarMenuFiltros(false);
+                }}
+              >
+                Menor Stock ↓
+              </button>
+            </div>
+          )}
+        </div>
 
         {cargando ? (
           <img src={loading} alt="Cargando productos..." />
@@ -154,12 +158,14 @@ const GaleriaDeProductos = ({ productos, cargando }) => {
           <>
             <ProductList agregarCarrito={agregarAlCarrito} productos={productosOrdenados} />
 
-            <ToastSimple
-              mensaje="Producto agregado al carrito ✅"
-              mostrar={toastVisible}
-              onCerrar={() => setToastVisible(false)}
-              duracion={2500}
-            />
+            {toastVisible && (
+              <ToastSimple
+                mensaje="Producto agregado al carrito ✅"
+                mostrar={toastVisible}
+                onCerrar={() => setToastVisible(false)}
+                duracion={2500}
+              />
+            )}
 
             <Cart
               cartItems={cartItems}
