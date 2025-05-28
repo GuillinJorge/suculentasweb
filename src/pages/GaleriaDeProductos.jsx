@@ -1,67 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Header from "../components/estaticos/Header";
 import Footer from "../components/estaticos/Footer";
 import ProductList from "../components/ProductLists";
 import Cart from "../components/Cart";
 import ToastSimple from "../components/ToastSimple";
 import loading from "../assets/loading.gif";
-
-
+import { CartContext } from "../context/CartContext";
 
 const GaleriaDeProductos = ({ productos, cargando }) => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("todos");
   const [orden, setOrden] = useState(null);
-  const [mostrarSidebar, setMostrarSidebar] = useState(false);
-
-  // Carga carrito desde localStorage o vacío si no existe
-  const [cartItems, setCartItems] = useState(() => {
-    const guardado = localStorage.getItem("carrito");
-    return guardado ? JSON.parse(guardado) : [];
-  });
+  const [mostrarMenuFiltros, setMostrarMenuFiltros] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
 
-  // Guarda carrito en localStorage cada vez que cambie cartItems
-  useEffect(() => {
-    localStorage.setItem("carrito", JSON.stringify(cartItems));
-  }, [cartItems]);
+  const {
+    cart,
+    handleAddToCart,
+    handDeleteFromCart,
+    actualizarCantidad,
+  } = useContext(CartContext);
 
   const abrirCarrito = () => setIsCartOpen(true);
-
-
-  const agregarAlCarrito = (producto) => {
-    const existente = cartItems.find(item => item.id === producto.id);
-
-    if (existente) {
-      const nuevosItems = cartItems.map(item =>
-        item.id === producto.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-      setCartItems(nuevosItems);
-    } else {
-      setCartItems([...cartItems, { ...producto, quantity: 1 }]);
-    }
-
-    setIsCartOpen(true);
-    setToastVisible(true);
-  };
-
-  const borrarProductoDelCarrito = (producto) => {
-    const nuevosItems = cartItems.filter(item => item.id !== producto.id);
-    setCartItems(nuevosItems);
-  };
-
-  const actualizarCantidad = (producto, cambio) => {
-    const nuevosItems = cartItems.map(item => {
-      if (item.id === producto.id) {
-        const nuevaCantidad = item.quantity + cambio;
-        return nuevaCantidad > 0 ? { ...item, quantity: nuevaCantidad } : null;
-      }
-      return item;
-    }).filter(Boolean);
-    setCartItems(nuevosItems);
-  };
 
   const productosFiltrados = productos.filter(producto =>
     categoriaSeleccionada === "todos" ? true : producto.categoria === categoriaSeleccionada
@@ -75,12 +35,9 @@ const GaleriaDeProductos = ({ productos, cargando }) => {
     if (orden === "stock-desc") return b.stock - a.stock;
   });
 
-  const [mostrarMenuFiltros, setMostrarMenuFiltros] = useState(false);
-
   return (
     <>
-      <Header borrarProductos={borrarProductoDelCarrito} cartItems={cartItems} abrirCarrito={abrirCarrito} />
-
+      <Header cartItems={cart} abrirCarrito={abrirCarrito} borrarProductos={handDeleteFromCart} />
 
       <main className="galeria-main">
         <h1>Tienda</h1>
@@ -90,7 +47,7 @@ const GaleriaDeProductos = ({ productos, cargando }) => {
             className="toggle-sidebar"
             onClick={() => setMostrarMenuFiltros(!mostrarMenuFiltros)}
           >
-            ☰ Ordenar y filtar
+            ☰ Ordenar y filtrar
           </button>
 
           {mostrarMenuFiltros && (
@@ -156,7 +113,14 @@ const GaleriaDeProductos = ({ productos, cargando }) => {
           <img src={loading} alt="Cargando productos..." />
         ) : (
           <>
-            <ProductList agregarCarrito={agregarAlCarrito} productos={productosOrdenados} />
+            <ProductList
+              agregarCarrito={(producto) => {
+                handleAddToCart(producto);
+                setIsCartOpen(true);
+                setToastVisible(true);
+              }}
+              productos={productosOrdenados}
+            />
 
             {toastVisible && (
               <ToastSimple
@@ -168,15 +132,16 @@ const GaleriaDeProductos = ({ productos, cargando }) => {
             )}
 
             <Cart
-              cartItems={cartItems}
+              cartItems={cart}
               isOpen={isCartOpen}
               onClose={() => setIsCartOpen(false)}
-              borrarProductos={borrarProductoDelCarrito}
+              borrarProductos={handDeleteFromCart}
               actualizarCantidad={actualizarCantidad}
             />
           </>
         )}
       </main>
+
       <Footer />
     </>
   );

@@ -1,7 +1,7 @@
 main {
   background-color: #0f1a2a;
   color: white;
-  min-height: 80vh; /* Ocupa casi toda la altura visible */
+  min-height: 60vh; /* Ocupa casi toda la altura visible */
   display: flex;
   flex-direction: column;
   align-items: center;

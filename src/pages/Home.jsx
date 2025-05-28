@@ -12,7 +12,7 @@ const Home = ({cart, productos, cargando, agregarCarrito, borrarProductos}) => {
         <Header borrarProductos={borrarProductos} cartItems={cart}/>
         <main>
         <h1>SUCULENTAS</h1>
-        <p>Dale una visita a nuestra tienda para conseguir conocer y adentrarte en el mundo de las suculentas. Te ofrecemos desde nuestro vivero las mejores suculentas para regalar o regalarte</p>
+        <p>Dale una visita a nuestra tienda para conseguir, conocer y adentrarte en el maravilloso mundo de las suculentas. Aquí te ofrecemos todo lo mejor desde nuestro vivero para regalar o regalarte</p>
         
         
         {

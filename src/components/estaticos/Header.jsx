@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 import './styleEstaticos.css';
 
-const Header = ({ cartItems, abrirCarrito }) => {
+const Header = () => {
+  const { cart, setIsCartOpen } = useContext(CartContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -33,10 +35,10 @@ const Header = ({ cartItems, abrirCarrito }) => {
             </Link>
           </li>
           <li className='cartnav'>
-            <button className='btnCart' onClick={abrirCarrito}>
+            <button className='btnCart' onClick={() => setIsCartOpen(true)}>
               <i className="fa-solid fa-cart-shopping"></i>
-              {cartItems.length > 0 && (
-                <span className="cart-count">{cartItems.length}</span>
+              {cart.length > 0 && (
+                <span className="cart-count">{cart.length}</span>
               )}
             </button>
           </li>
@@ -52,4 +54,3 @@ const Header = ({ cartItems, abrirCarrito }) => {
 };
 
 export default Header;
-
