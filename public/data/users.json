@@ -1,0 +1,12 @@
+[
+  {
+    "email": "admin@sucu.com",
+    "password": "admin123",
+    "role": "admin"
+  },
+  {
+    "email": "cliente@sucu.com",
+    "password": "cliente123",
+    "role": "cliente"
+  }
+]
