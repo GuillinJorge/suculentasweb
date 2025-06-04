@@ -27,6 +27,29 @@ const Admin = () => {
       });
   }, []);
 
+  const agregarProducto = async (producto) =>{
+    try{
+      const respuesta = await fetch('https://683f863e5b39a8039a54d90b.mockapi.io/products/productos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(producto)
+      })
+      if(!respuesta.ok){
+        throw new Error('Error al agregar producto')
+      }
+      
+      const data = await respuesta.json()
+      alert ('Producto agregado correctamente')
+
+    }catch(error){
+      console.log(error.message);
+    }
+  }
+
+
+
   return (
     <div className="admin-container">
       <nav className="admin-nav">
@@ -71,7 +94,7 @@ const Admin = () => {
         </ul>
       )}
       <button onClick={()=> setOpen(true)}>*</button>
-      {open && (<FormularioProducto/>)}
+      {open && (<FormularioProducto onAgregar={agregarProducto}/>)}
     </div>
   );
 };
