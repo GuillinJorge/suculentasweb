@@ -12,45 +12,48 @@ export const CartProvider = ({ children }) => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
   const [isAuthenticated, setIsAuth] = useState(false);
-
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
 
   // Cargar productos
   useEffect(() => {
-    fetch('/data/data.json')
-      .then(res => res.json())
+    fetch('https://683f863e5b39a8039a54d90b.mockapi.io/products/productos')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Error en la respuesta del servidor');
+        }
+        return res.json();
+      })
       .then(data => {
-        setTimeout(() => {
-          setProductos(data);
-          setCargando(false);
-        }, 2000);
+        setProductos(data);
+        setCargando(false);
       })
       .catch(error => {
-        console.log('Error', error);
+        console.error('Error al obtener productos:', error);
         setError(true);
         setCargando(false);
       });
   }, []);
+
 
   // Guardar carrito en localStorage
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(cart));
   }, [cart]);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, cantidad = 1) => {
     const productInCart = cart.find((item) => item.id === product.id);
 
     if (productInCart) {
       setCart(
         cart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity}
             : item
         )
       );
     } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
+      setCart([...cart, { ...product, quantity: cantidad }]);
     }
 
     setIsCartOpen(true);

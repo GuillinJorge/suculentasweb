@@ -7,19 +7,14 @@ import ToastSimple from "../components/ToastSimple";
 import loading from "../assets/loading.gif";
 import { CartContext } from "../context/CartContext";
 
-const GaleriaDeProductos = ({ productos, cargando }) => {
+const GaleriaDeProductos = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("todos");
   const [orden, setOrden] = useState(null);
   const [mostrarMenuFiltros, setMostrarMenuFiltros] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
 
-  const {
-    cart,
-    handleAddToCart,
-    handDeleteFromCart,
-    actualizarCantidad,
-  } = useContext(CartContext);
+  const {cart, productos, cargando, handleAddToCart, handDeleteFromCart, actualizarCantidad,} = useContext(CartContext);
 
   const abrirCarrito = () => setIsCartOpen(true);
 

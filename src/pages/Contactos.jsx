@@ -1,19 +1,22 @@
-import React from 'react'
-import Header from '../components/estaticos/Header'
-import Footer from '../components/estaticos/Footer'
-import '../pages/Home.css'
+import React, { useContext } from 'react';
+import Header from '../components/estaticos/Header';
+import Footer from '../components/estaticos/Footer';
+import { CartContext } from '../context/CartContext';
+import '../pages/Home.css';
 
-const Contactos = ({cart}) => {
+const Contactos = () => {
+  const { cart } = useContext(CartContext);
+
   return (
     <>
-      <Header cartItems={cart}/>
+      <Header cartItems={cart} />
       <main>
-      <h1>Contactanos</h1>
-      <p>Proximamente se encontrara un formulario de contacto para poder comunicarte con nosotros</p>
+        <h1>Contactanos</h1>
+        <p>Próximamente se encontrará un formulario de contacto para poder comunicarte con nosotros.</p>
       </main>
-      <Footer/>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Contactos
+export default Contactos;

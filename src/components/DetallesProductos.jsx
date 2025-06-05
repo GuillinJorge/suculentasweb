@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
-import loading from '../assets/loading.gif'; // Asegurate que esta ruta sea correcta
+import loading from '../assets/loading.gif'; 
 import '../pages/Home.css'
 
 const DetallesProductos = () => {

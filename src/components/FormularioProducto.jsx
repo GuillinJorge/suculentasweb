@@ -4,7 +4,8 @@ const FormularioProducto = ({ onAgregar }) => {
   const [producto, setProducto] = useState({
     nombre: '',
     precio: '',
-    descripcion: ''
+    descripcion: '',
+    imagen:''
   });
 
   const [errores, setErrores] = useState({});
@@ -22,6 +23,7 @@ const FormularioProducto = ({ onAgregar }) => {
     if (!producto.nombre.trim()) nuevosErrores.nombre = 'El nombre es obligatorio';
     if (!producto.precio || parseFloat(producto.precio) <= 0) nuevosErrores.precio = 'El precio debe ser mayor a 0';
     if (!producto.descripcion.trim()) nuevosErrores.descripcion = 'La descripción es obligatoria';
+    if (!producto.imagen.trim()) nuevosErrores.imagen = 'La imagen es obligatoria';
 
     if (Object.keys(nuevosErrores).length > 0) {
       setErrores(nuevosErrores);
@@ -33,7 +35,8 @@ const FormularioProducto = ({ onAgregar }) => {
     setProducto({
       nombre: '',
       precio: '',
-      descripcion: ''
+      descripcion: '',
+      imagen:''
     });
 
     setErrores({});
@@ -73,6 +76,16 @@ const FormularioProducto = ({ onAgregar }) => {
         <textarea
           name="descripcion"
           value={producto.descripcion}
+          onChange={handleChange}
+          required
+        />
+        {errores.descripcion && <p style={{ color: 'red' }}>{errores.descripcion}</p>}
+      </div>
+      <div>
+        <label>Imagen:</label>
+        <textarea
+          name="imagen"
+          value={producto.imagen}
           onChange={handleChange}
           required
         />

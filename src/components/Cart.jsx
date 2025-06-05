@@ -3,13 +3,7 @@ import './styleCart.css';
 import { CartContext } from '../context/CartContext';
 
 const Cart = () => {
-  const {
-    cart,
-    isCartOpen,
-    setIsCartOpen,
-    handDeleteFromCart,
-    actualizarCantidad,
-  } = useContext(CartContext);
+  const { cart, isCartOpen, setIsCartOpen, handDeleteFromCart, actualizarCantidad,} = useContext(CartContext);
 
   // Cerrar con la tecla Escape
   useEffect(() => {

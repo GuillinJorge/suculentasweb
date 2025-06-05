@@ -1,3 +1,11 @@
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
 .card {
   background-color: rgba(255, 255, 255, 0.05); /* Fondo translúcido claro */
   border-radius: 16px;

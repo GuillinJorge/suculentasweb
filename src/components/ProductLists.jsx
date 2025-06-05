@@ -1,22 +1,26 @@
-import React from 'react'
-import Productos from './Productos'
+import React from 'react';
+import Productos from './Productos';
+import './styleProductos.css'
+import { CartContext } from '../context/CartContext';
 
-const ProductList = ({ productos, agregarCarrito }) => {
+const ProductList = ({ productos = [], cargando, agregarCarrito, borrarProducto }) => {
+  if (cargando) return <p>Cargando productos...</p>;
+
+  if (!productos || productos.length === 0) return <p>No hay productos disponibles.</p>;
+
   return (
     <>
-      <h2>Nuestra galeria de suculentas</h2>
-
-      <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-evenly'}}>
-
-        {
-          productos.map(producto => (
-            <Productos key={producto.id} producto={producto} agregarCarrito={agregarCarrito}/>
-          ))
-        }
+      <div className="product-grid">
+        {productos.map((producto) => (
+          <Productos
+            key={producto.id}
+            producto={producto}
+            agregarCarrito={agregarCarrito}
+          />
+        ))}
       </div>
-
     </>
-  )
-}
+  );
+};
 
-export default ProductList
+export default ProductList;
