@@ -1,5 +1,5 @@
 main {
-  background-color: #0f1a2a;
+  background-color: #336e7c;
   color: white;
   min-height: 60vh; /* Ocupa casi toda la altura visible */
   display: flex;
@@ -31,4 +31,10 @@ main img {
   margin: 0 auto;
   width: 100px;
   height: 100px;
+}
+
+.remove-bg {
+    filter: brightness(1.1);
+    mix-blend-mode: multiply;
+   
 }

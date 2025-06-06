@@ -35,7 +35,8 @@ const GaleriaDeProductos = () => {
       <Header cartItems={cart} abrirCarrito={abrirCarrito} borrarProductos={handDeleteFromCart} />
 
       <main className="galeria-main">
-        <h1>Tienda</h1>
+        <h1>Tienda 🛒</h1>
+        <p>Estos son nuestros productos más destacados</p>
 
         <div className="menu-filtros-container">
           <button

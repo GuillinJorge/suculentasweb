@@ -8,7 +8,7 @@ const DetallesProductos = () => {
   const { productos, cargando } = useContext(CartContext);
   const { id } = useParams();
 
-  const product = productos.find(product => product.id === Number(id));
+  const product = productos.find(product => String(product.id) === id);
 
   return (
     <main>

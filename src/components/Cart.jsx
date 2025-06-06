@@ -29,8 +29,8 @@ const Cart = () => {
 
       <div className={`cart-drawer ${isCartOpen ? 'open' : ''}`}>
         <div className='cart-header'>
-          <h2>Carrito de compras</h2>
-          <button onClick={() => setIsCartOpen(false)} className='close-button'>X</button>
+          <h2>Carrito de compras 🛒</h2>
+          <button onClick={() => setIsCartOpen(false)} className='close-button'>✖</button>
         </div>
 
         <div className='cart-content'>

@@ -10,6 +10,7 @@ const Productos = ({ producto, agregarCarrito }) => {
 
   const handleAgregar = () => {
     agregarCarrito(producto, cantidad);
+    setCantidad(1); // Reinicia la cantidad después de agregar si querés
   }
 
   return (
@@ -27,10 +28,18 @@ const Productos = ({ producto, agregarCarrito }) => {
         <button className='qtyButton' onClick={increase}>+</button>
       </div>
 
-      <button onClick={handleAgregar}>Agregar al carrito</button>
-      <Link to={`/productos/${producto.id}`}>Ver más</Link>
+      <button 
+        onClick={handleAgregar} 
+        disabled={cantidad >= producto.stock}
+      >
+        {cantidad >= producto.stock ? 'Stock máximo alcanzado' : 'Agregar al carrito'}
+      </button>
+
+      <Link   to={`/productos/${producto.id}`} style={{ color: '#4CAF50', textDecoration: 'none', fontWeight: 'bold' }}
+>
+  Ver más
+</Link>
     </section>
- 
   )
 }
 
