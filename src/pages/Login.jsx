@@ -1,122 +1,107 @@
-import React, { useState, useContext } from 'react';
-import { CartContext } from '../context/CartContext';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import './Login.css';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const { setIsAuth } = useContext(CartContext);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    let validationErrors = {};
-    if (!email) validationErrors.email = 'Email es requerido';
-    if (!password) validationErrors.password = 'La contraseña es requerida';
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    try {
-      const res = await fetch('/data/users.json');
-      if (!res.ok) throw new Error('No se pudo cargar el archivo');
-      const users = await res.json();
-
-      const foundUser = users.find(
-        (user) => user.email === email.trim() && user.password === password.trim()
-      );
-
-      if (!foundUser) {
-        setErrors({ email: 'Credenciales inválidas' });
-      } else {
-        if (foundUser.role === 'admin') {
-          setIsAuth(true);
-          navigate('/admin');
-        } else {
-          navigate('/');
-        }
-      }
-    } catch (err) {
-      console.error('Error al cargar el archivo:', err);
-      setErrors({ email: 'Algo salió mal, por favor intentalo más tarde' });
-    }
-  };
+  const { 
+    email, 
+    setEmail, 
+    password, 
+    setPassword, 
+    handleSubmit, 
+    errors,
+    loading  // Añadimos el estado de carga
+  } = useAuth();
 
   return (
-    <form onSubmit={handleSubmit}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-        maxWidth: '400px',
-        margin: 'auto',
-      }}
-    >
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <label htmlFor="formBasicEmail" style={{ marginBottom: '0.5rem', fontWeight: 'bold' }}>
-          Email address
-        </label>
-        <input
-          id="formBasicEmail"
-          type="email"
-          placeholder="Enter email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{
-            padding: '0.5rem',
-            border: `1px solid ${errors.email ? 'red' : '#ced4da'}`,
-            borderRadius: '0.25rem'
-          }}
-        />
-        {errors.email && (
-          <div style={{ color: 'red', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-            {errors.email}
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-form" noValidate>
+        <Link to="/" className="logo-link">
+          <img 
+            className="login-logo" 
+            src="/logo_ppal.jpg"  // Corregida la ruta (eliminado 'public')
+            alt="Suculentas Web - Volver al inicio" 
+          />
+        </Link>
+        
+        <h1 className="login-title">Inicia sesión en tu cuenta</h1>
+        
+        {/* Mensaje de error general */}
+        {errors.general && (
+          <div className="error-message" role="alert">
+            <span role="img" aria-hidden="true">❌</span> {errors.general}
           </div>
         )}
-      </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <label htmlFor="formBasicPassword" style={{ marginBottom: '0.5rem', fontWeight: 'bold' }}>
-          Password
-        </label>
-        <input
-          id="formBasicPassword"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{
-            padding: '0.5rem',
-            border: `1px solid ${errors.password ? 'red' : '#ced4da'}`,
-            borderRadius: '0.25rem',
-          }}
-        />
-        {errors.password && (
-          <div style={{ color: 'red', fontSize: '0.875rem', marginTop: '0.25rem' }}>
-            {errors.password}
-          </div>
-        )}
-      </div>
+        <div className="form-group">
+          <label htmlFor="formBasicEmail" className="form-label">
+            Correo electrónico
+          </label>
+          <input
+            id="formBasicEmail"
+            type="email"
+            placeholder="tucorreo@ejemplo.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={`form-input ${errors.email ? 'input-error' : ''}`}
+            aria-describedby={errors.email ? "emailError" : undefined}
+            disabled={loading}  // Deshabilitado durante carga
+            required
+          />
+          {errors.email && (
+            <div id="emailError" className="error-text">
+              <span role="img" aria-hidden="true">⚠️</span> {errors.email}
+            </div>
+          )}
+        </div>
 
-      <button
-        type='submit'
-        style={{
-          backgroundColor: '#007bff',
-          color: 'white',
-          padding: '0.75rem',
-          border: 'none',
-          borderRadius: '0.25rem',
-          cursor: 'pointer',
-          fontSize: '1rem',
-        }}
-      >
-        Submit
-      </button>
-    </form>
+        <div className="form-group">
+          <label htmlFor="formBasicPassword" className="form-label">
+            Contraseña
+          </label>
+          <input
+            id="formBasicPassword"
+            type="password"
+            placeholder="Ingresa tu contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={`form-input ${errors.password ? 'input-error' : ''}`}
+            aria-describedby={errors.password ? "passwordError" : undefined}
+            disabled={loading}  // Deshabilitado durante carga
+            required
+          />
+          {errors.password && (
+            <div id="passwordError" className="error-text">
+              <span role="img" aria-hidden="true">⚠️</span> {errors.password}
+            </div>
+          )}
+        </div>
+
+        <button 
+          type="submit" 
+          className={`login-button ${loading ? 'button-loading' : ''}`}
+          aria-label={loading ? "Procesando inicio de sesión" : "Iniciar sesión"}
+          disabled={loading}  // Deshabilitado durante carga
+        >
+          {loading ? (
+            <>
+              <span className="spinner" aria-hidden="true"></span>
+              Procesando...
+            </>
+          ) : (
+            'Iniciar sesión'
+          )}
+        </button>
+
+        <div className="login-footer">
+          <p>¿No tienes cuenta? <Link to="/registro" className="register-link">Regístrate</Link></p>
+          <Link to="/recuperar-contrasena" className="forgot-password">
+            ¿Olvidaste tu contraseña?
+          </Link>
+        </div>
+      </form>
+    </div>
   );
 };
 

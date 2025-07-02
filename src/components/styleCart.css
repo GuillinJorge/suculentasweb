@@ -127,3 +127,20 @@
 .quantity-controls button:hover {
   background-color: #52dcb2;
 }
+
+
+@media (max-width: 768px) {
+  .cart-drawer {
+    top: 0;
+    height: 100vh;
+    padding-top: 70px; /* Espacio para el header */
+  }
+  
+  .cart-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+  }
+}

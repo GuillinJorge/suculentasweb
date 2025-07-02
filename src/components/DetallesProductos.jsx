@@ -27,6 +27,7 @@ const DetallesProductos = () => {
           <p>Precio: ${product.precio}</p>
           <p>Stock: {product.stock}</p>
           <p>Descripción: {product.descripcion}</p>
+          <p>Categoria: {product.categoria}</p>
         </>
       ) : (
         <p style={{ color: "red" }}>Producto no encontrado</p>

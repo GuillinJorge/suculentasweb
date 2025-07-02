@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import './FormularioProducto.css';
+import { faTimes, faSave } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import './FormularioProducto.css'; // Reutilizamos los mismos estilos
 
-
-const FormularioProducto = ({ onAgregar, onClose }) => {
+const FormularioEdicion = ({ productoSeleccionado, onActualizar, onClose }) => {
   const [producto, setProducto] = useState({
+    id: '',
     nombre: '',
     precio: '',
     descripcion: '',
@@ -16,6 +17,21 @@ const FormularioProducto = ({ onAgregar, onClose }) => {
 
   const [errores, setErrores] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Actualizar estado cuando cambia productoSeleccionado
+  useEffect(() => {
+    if (productoSeleccionado) {
+      setProducto({
+        id: productoSeleccionado.id || '',
+        nombre: productoSeleccionado.nombre || '',
+        precio: productoSeleccionado.precio || '',
+        descripcion: productoSeleccionado.descripcion || '',
+        imagen: productoSeleccionado.imagen || '',
+        categoria: productoSeleccionado.categoria || '',
+        stock: productoSeleccionado.stock || ''
+      });
+    }
+  }, [productoSeleccionado]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +65,7 @@ const FormularioProducto = ({ onAgregar, onClose }) => {
     }
 
     try {
-      await onAgregar({
+      await onActualizar({
         ...producto,
         precio: parseFloat(producto.precio),
         stock: parseInt(producto.stock)
@@ -58,29 +74,21 @@ const FormularioProducto = ({ onAgregar, onClose }) => {
       // Feedback visual de éxito
       Swal.fire({
         icon: 'success',
-        title: '¡Producto agregado!',
+        title: '¡Producto actualizado!',
+        text: `"${producto.nombre}" se actualizó correctamente`,
         showConfirmButton: false,
         timer: 1500,
         background: '#224455',
         color: '#ffffff'
       });
 
-      // Resetear formulario
-      setProducto({
-        nombre: '',
-        precio: '',
-        descripcion: '',
-        imagen: '',
-        categoria: '',
-        stock: ''
-      });
-      setErrores({});
+      onClose(); // Cerrar el formulario después de actualizar
       
     } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: error.message || 'Ocurrió un error al agregar el producto',
+        text: error.message || 'Ocurrió un error al actualizar el producto',
         confirmButtonColor: '#ff5252',
         background: '#224455',
         color: '#ffffff'
@@ -102,8 +110,8 @@ const FormularioProducto = ({ onAgregar, onClose }) => {
     <div className="formulario-container">
       <div className="formulario-header">
         <h2>
-          <FontAwesomeIcon icon={faCheckCircle} className="form-icon" />
-          Nuevo Producto
+          <FontAwesomeIcon icon={faSave} className="form-icon" />
+          Editar Producto
         </h2>
         <button 
           type="button" 
@@ -116,6 +124,19 @@ const FormularioProducto = ({ onAgregar, onClose }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="formulario-producto">
+        <div className="form-group">
+          <label htmlFor="id">ID del Producto</label>
+          <input
+            id="id"
+            type="text"
+            name="id"
+            value={producto.id}
+            onChange={handleChange}
+            readOnly
+            className="read-only-input"
+          />
+        </div>
+
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="nombre">Nombre del Producto</label>
@@ -231,7 +252,7 @@ const FormularioProducto = ({ onAgregar, onClose }) => {
             className="submit-button"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Agregando...' : 'Agregar Producto'}
+            {isSubmitting ? 'Actualizando...' : 'Actualizar Producto'}
           </button>
         </div>
       </form>
@@ -239,4 +260,4 @@ const FormularioProducto = ({ onAgregar, onClose }) => {
   );
 };
 
-export default FormularioProducto;
+export default FormularioEdicion;

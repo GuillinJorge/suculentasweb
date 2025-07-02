@@ -3,17 +3,22 @@ import { createContext, useState, useEffect } from "react";
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+ 
+  // Estado del carrito
   const [cart, setCart] = useState(() => {
     const storedCart = localStorage.getItem("carrito");
     return storedCart ? JSON.parse(storedCart) : [];
   });
 
+  // Estado para productos y carga
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(false);
-  const [isAuthenticated, setIsAuth] = useState(false);
+
+  // Estado para la UI del carrito
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
 
   // Cargar productos
   useEffect(() => {
@@ -35,12 +40,17 @@ export const CartProvider = ({ children }) => {
       });
   }, []);
 
+  // Filtrar productos según búsqueda
+  const productosFiltrados = productos.filter((producto) => 
+    producto?.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
-  // Guardar carrito en localStorage
+  // Persistir carrito en localStorage
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(cart));
   }, [cart]);
 
+  // Añadir producto al carrito
   const handleAddToCart = (product, cantidad = 1) => {
     const productInCart = cart.find((item) => item.id === product.id);
 
@@ -48,7 +58,7 @@ export const CartProvider = ({ children }) => {
       setCart(
         cart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + cantidad}
+            ? { ...item, quantity: item.quantity + cantidad }
             : item
         )
       );
@@ -60,6 +70,7 @@ export const CartProvider = ({ children }) => {
     setToastVisible(true);
   };
 
+  // Eliminar producto del carrito
   const handDeleteFromCart = (product) => {
     setCart((prevCart) =>
       prevCart
@@ -78,17 +89,18 @@ export const CartProvider = ({ children }) => {
     );
   };
 
- const actualizarCantidad = (producto, cambio) => {
-  setCart((prevCart) =>
-    prevCart
-      .map((item) =>
-        item.id === producto.id
-          ? { ...item, quantity: item.quantity + cambio }
-          : item
-      )
-      .filter(item => item.quantity > 0)
-  );
-};
+  // Actualizar cantidad de un producto
+  const actualizarCantidad = (producto, cambio) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === producto.id
+            ? { ...item, quantity: item.quantity + cambio }
+            : item
+        )
+        .filter(item => item.quantity > 0)
+    );
+  };
 
   return (
     <CartContext.Provider
@@ -97,15 +109,16 @@ export const CartProvider = ({ children }) => {
         productos,
         cargando,
         error,
-        isAuthenticated,
-        setIsAuth,
         handleAddToCart,
         handDeleteFromCart,
         actualizarCantidad,
         isCartOpen,
         setIsCartOpen,
         toastVisible,
-        setToastVisible
+        setToastVisible,
+        productosFiltrados,
+        busqueda,
+        setBusqueda,
       }}
     >
       {children}

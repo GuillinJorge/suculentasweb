@@ -1,228 +1,430 @@
 :root {
-  --color-text: #fff;            /* texto blanco */
-  --color-accent: #3ddc97;       /* verde agua para hover */
-  --color-card-bg: #224455;      /* fondo de footer y tarjetas */
+    /* Variables principales - priorizando paleta y nombres del primer CSS */
+    --color-text: #fff; /* del primero */
+    --color-accent: #3ddc97; /* Verde brillante del primero */
+    --color-card-bg: #224455; /* Azul oscuro */
+    --color-light: #ccc; /* Gris claro */
+    --color-white: #fff; /* Blanco puro */
+    --footer-bg: var(--color-card-bg); /* Fondo del footer igual al color de tarjeta */
+    --transition-speed: 0.3s;
+
+    /* Variables adicionales del segundo CSS integradas con prefijo para evitar choque */
+    --color-primary-alt: #3a5a40;
+    --color-secondary-alt: #588157;
+    --color-accent-alt: #a3b18a;
+    --color-light-alt: #dad7cd;
+    --color-text-alt: #333;
+    --footer-bg-alt: #253513;
+
+    /* Variables específicas para el footer (ajustadas para armonizar con la paleta existente) */
+    --footer-dark-green: #2c5f2d;
+    --footer-light-green-text: #e0ffe0;
+    --footer-bright-green: #a8df8e;
+    --footer-hover-green: #c0f0c0;
+    --footer-input-bg: #3d7a3d;
 }
 
-
-nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  margin: 0;
-  align-items: center;
-  padding: 0;
-}
-
-/* Para pantallas pequeñas, cambiamos a menú vertical oculto */
-@media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-    background-color: #0f1a2a;
-    position: fixed;
-    top: 60px; /* Debajo del header */
-    right: 0;
-    width: 200px;
-    height: calc(100% - 60px);
-    padding-top: 20px;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    box-shadow: -2px 0 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-  }
-
-  nav ul.open {
-    transform: translateX(0);
-  }
-
-  nav ul li {
-    margin: 15px 0;
-  }
-
-  /* Opcional: oculta el logo para que quede más limpio */
-  nav ul li:first-child {
-    margin-bottom: 30px;
-  }
-}
-
-/* Botón hamburguesa oculto inicialmente */
-.hamburger {
-  display: none;
-  cursor: pointer;
-  font-size: 24px;
-  color: white;
-  background: none;
-  border: none;
-  margin-left: auto;
-}
-
-/* Mostrar botón hamburguesa en pantallas pequeñas */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-}
-
-
-
-/* Nav principal */
+/* ====== Navegación ====== */
 nav {
-  background: linear-gradient(to right, #122233, #224455, #336677);
-  color: var(--color-text);
-  padding: 10px;
-  position: relative;
+    background: linear-gradient(to left, #122233, #224455, #336677);
+    color: var(--color-text);
+    padding: 1px;
+    position: relative;
 }
 
-/* Menu desktop */
+nav ul,
 ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  margin: 0;
-  align-items: center;
-  padding: 0;
-  transition: transform 0.3s ease-in-out;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    transition: transform var(--transition-speed) ease-in-out;
 }
 
-/* Links */
+
 .link {
-  color: var(--color-text);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--transition-speed) ease;
 }
 
 .link:hover {
-  color: var(--color-accent);
+    color: var(--color-accent);
 }
 
-/* Boton carrito */
 .btnCart {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .fa-cart-shopping {
-  color: #ff5252;
-  font-size: 20px;
-  transition: transform 0.2s ease;
+    color: #ff5252;
+    font-size: 20px;
+    transition: transform 0.2s ease;
 }
 
 .fa-cart-shopping:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
-/* Logo */
 .logonav {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
 }
 
-/* Botón hamburguesa oculto por defecto */
 .hamburger {
-  display: none;
-  cursor: pointer;
-  font-size: 28px;
-  color: var(--color-text);
+  display: none; /* Oculto por defecto en desktop */
   background: none;
   border: none;
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 1100;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1000;
+  position: relative;
+}
+.hamburger .hamburger-line {
+  display: block;
+  width: 10px;
+  height: 3px;
+  background-color: white;
+  margin: 5px 0;
+  transition: all 0.3s ease;
 }
 
-/* Responsive: móvil / tablet */
-@media (max-width: 768px) {
+/* ====== Footer ====== */
+.footer {
+    background-color: var(--footer-bg); /* del primero */
+    color: var(--color-light);
+    padding: 2rem 1rem 0;
+    font-size: 0.95rem;
+    font-family: 'Arial', sans-serif;
+    
+}
 
-  /* Ocultar menú horizontal y pasar a vertical y oculto */
-  ul {
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    padding-bottom: 2rem;
+}
+
+.footer-col {
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+.footer-titulo {
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-white);
+}
+
+.footer-titulo::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--color-accent);
+}
+
+.footer-list {
+    align-items: flex-start;
+    display: flex;
     flex-direction: column;
-    background: #224455;
-    position: fixed;
-    top: 60px;
-    right: 0;
-    height: calc(100% - 60px);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-list li {
+    margin-bottom: 0.75rem;
+    display: flex; 
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-list a,
+.footer-list span {
+    color: var(--color-light);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+.footer-list a:hover {
+    color: var(--color-accent);
+}
+
+.footer-list svg {
+    width: 1rem;
+    color: var(--color-accent);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.social-links svg {
+    font-size: 1.2rem;
+}
+
+/* Newsletter */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.newsletter-form input {
+    padding: 0.5rem;
+    border: 1px solid var(--color-light);
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--color-white);
+    font-size: 1em;
     width: 100%;
-    padding-top: 20px;
-    transform: translateX(100%);
-    box-shadow: -2px 0 10px rgba(0,0,0,0.4);
-    z-index: 1050;
-  }
+    box-sizing: border-box;
+}
 
-  /* Mostrar menú cuando tenga clase open */
-  ul.open {
-    transform: translateX(0);
-  }
+.newsletter-form input::placeholder {
+    color: var(--color-light);
+    opacity: 0.7;
+}
 
-  /* Separar items verticalmente */
-  ul li {
-    margin: 15px 0;
+.newsletter-form button {
+    padding: 0.5rem;
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease;
+    font-weight: bold;
+}
+
+.newsletter-form button:hover {
+    background-color: var(--color-light);
+    color: var(--color-card-bg);
+}
+
+/* Footer bottom */
+.footer-bottom {
     text-align: center;
-  }
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    color: var(--color-light);
+}
 
-  /* Mostrar botón hamburguesa */
+.footer-bottom p {
+    margin: 0.5rem 0;
+}
+
+.footer-bottom span {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* ===== HEADER ===== */
+.header {
+ background: linear-gradient(to left, #122233, #224455, #336677);
+  padding: 0.5rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+ box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1000;
+  height: 70px; /* Altura fija para consistencia */
+}
+
+/* Logo styles */
+.logo-link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logonav {
+  height: 45px;
+  width: auto;
+  transition: transform 0.3s;
+}
+
+.logonav:hover {
+  transform: scale(1.05);
+}
+
+/* Menú principal */
+.nav-links {
+  display: flex;
+  gap: 1.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-links li {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-links a {
+  
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.3rem;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--color-accent);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Carrito visible */
+.cartnav {
+  position: relative;
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.btnCart {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 0.5rem;
+}
+
+
+/* Carrito */
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background-color: #ff5252;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+/* Hamburguesa */
+.hamburger {
+  display: none;
+  z-index: 1003;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    width: 70%;
+    z-index: 1001;
+  }
+  
+  .cartnav {
+    z-index: 1002;
+  }
+}
+
+/* Menú móvil */
+@media (max-width: 768px) {
   .hamburger {
     display: block;
   }
 
-  /* Ajustar logo en móvil (opcional) */
-  .logonav {
-    height: 40px;
-    margin-left: 10px;
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(to bottom, #122233, #224455);
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 3px;
+    padding-top: 80px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    padding: 1rem;
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  .hamburger.open .hamburger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open .hamburger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+   
+  .nav-links a {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separador opcional */
   }
 }
 
-.footer {
-  background-color: #253513;
-  color: #fff;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 0.5rem;
-  text-align: center;
-}
-
-.footer-col {
-  flex: 1 1 200px;
-  margin: 1rem;
-}
-
-.footer-col h4 {
-  margin-bottom: 1rem;
-  color: #ddd;
-}
-
-.footer-col a {
-  display: block;
-  color: #ccc;
-  text-decoration: none;
-  margin-bottom: 0.5rem;
-}
-
-.footer-col a:hover {
-  color: #fff;
-}
-
-.footer-bottom {
-  width: 100%;
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: #aaa;
-}
-
-.footer-titulo {
-  position: relative;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-  margin: 0 auto 10px auto; 
-  font-size: 1.1rem;
-  font-weight: bold;
-  border-bottom: 2px solid #7ac19e; /* verde suculenta */
-  width: fit-content;
-}

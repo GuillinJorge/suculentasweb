@@ -13,31 +13,75 @@ const GaleriaDeProductos = () => {
   const [mostrarMenuFiltros, setMostrarMenuFiltros] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
+  const [busqueda, setBusqueda] = useState(""); // 🔍
 
-  const {cart, productos, cargando, handleAddToCart, handDeleteFromCart, actualizarCantidad,} = useContext(CartContext);
+  const {
+    cart,
+    productos,
+    cargando,
+    handleAddToCart,
+    handDeleteFromCart,
+    actualizarCantidad,
+  } = useContext(CartContext);
 
-  const abrirCarrito = () => setIsCartOpen(true);
+  // 🔎 Filtrar por categoría y búsqueda
+  const productosFiltrados = productos.filter((producto) => {
+    const coincideCategoria =
+      categoriaSeleccionada === "todos" ||
+      producto.categoria === categoriaSeleccionada;
 
-  const productosFiltrados = productos.filter(producto =>
-    categoriaSeleccionada === "todos" ? true : producto.categoria === categoriaSeleccionada
-  );
+    const coincideBusqueda = producto.nombre
+      .toLowerCase()
+      .includes(busqueda.toLowerCase());
 
+    return coincideCategoria && coincideBusqueda;
+  });
+
+  // ⬆️⬇️ Ordenar productos
   const productosOrdenados = [...productosFiltrados].sort((a, b) => {
-    if (!orden) return 0;
-    if (orden === "precio-asc") return a.precio - b.precio;
-    if (orden === "precio-desc") return b.precio - a.precio;
-    if (orden === "stock-asc") return a.stock - b.stock;
-    if (orden === "stock-desc") return b.stock - a.stock;
+    switch (orden) {
+      case "precio-asc":
+        return a.precio - b.precio;
+      case "precio-desc":
+        return b.precio - a.precio;
+      case "stock-asc":
+        return a.stock - b.stock;
+      case "stock-desc":
+        return b.stock - a.stock;
+      default:
+        return 0;
+    }
   });
 
   return (
     <>
-      <Header cartItems={cart} abrirCarrito={abrirCarrito} borrarProductos={handDeleteFromCart} />
+      <Header />
 
       <main className="galeria-main">
         <h1>Tienda 🛒</h1>
         <p>Estos son nuestros productos más destacados</p>
 
+          <h3>Usa nuestra barra de busqueda para buscar más rápido</h3>
+        {/* 🔍 Búsqueda */}
+        <div className="busqueda-container">
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            className="busqueda-input"
+          />
+          {busqueda && (
+            <button
+              onClick={() => setBusqueda("")}
+              className="clear-search-button"
+            >
+              Limpiar
+            </button>
+          )}
+        </div>
+
+        {/* 📋 Filtros */}
         <div className="menu-filtros-container">
           <button
             className="toggle-sidebar"
@@ -49,7 +93,14 @@ const GaleriaDeProductos = () => {
           {mostrarMenuFiltros && (
             <div className="menu-filtros-dropdown">
               <h4>Filtrar por categoría</h4>
-              {["todos", "Cactáceas", "Arból de jade", "Lengua de suegra", "Sedum", "Echeveria"].map((cat) => (
+              {[
+                "todos",
+                "Cactáceas",
+                "Arból de jade",
+                "Lengua de suegra",
+                "Sedum",
+                "Echeveria",
+              ].map((cat) => (
                 <button
                   key={cat}
                   className={categoriaSeleccionada === cat ? "active" : ""}
@@ -58,7 +109,7 @@ const GaleriaDeProductos = () => {
                     setMostrarMenuFiltros(false);
                   }}
                 >
-                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  {cat}
                 </button>
               ))}
 
@@ -105,19 +156,22 @@ const GaleriaDeProductos = () => {
           )}
         </div>
 
+        {/* ⏳ Carga o Productos */}
         {cargando ? (
           <img src={loading} alt="Cargando productos..." />
         ) : (
           <>
             <ProductList
+              productos={productosOrdenados}
+              cargando={cargando}
               agregarCarrito={(producto) => {
                 handleAddToCart(producto);
                 setIsCartOpen(true);
                 setToastVisible(true);
               }}
-              productos={productosOrdenados}
             />
 
+            {/* ✅ Mensaje temporal */}
             {toastVisible && (
               <ToastSimple
                 mensaje="Producto agregado al carrito ✅"
@@ -127,6 +181,7 @@ const GaleriaDeProductos = () => {
               />
             )}
 
+            {/* 🛒 Carrito */}
             <Cart
               cartItems={cart}
               isOpen={isCartOpen}

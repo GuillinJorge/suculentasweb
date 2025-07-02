@@ -1,100 +1,123 @@
-import React, { useState, useEffect } from "react";
-import "./Admin.css";
+import React, { useState, useEffect, useContext } from "react";
+import { AdminContext } from "../context/AdminContext";
 import FormularioProducto from "../components/FormularioProducto";
+import "./Admin.css";
+import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket, faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import FormularioEdicion from "../components/FormularioEdicion";
 
 const Admin = () => {
-  const [products, setProducts] = useState([]);
-  const [form, setForm] = useState({ id: null, name: "", price: "" });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [open, setOpen] = useState(false);
 
-
-
-  useEffect(() => {
-    fetch("/data/data.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setTimeout(() => {
-          setProducts(data);
-          setLoading(false);
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setError(true);
-        setLoading(false);
-      });
-  }, []);
-
-  const agregarProducto = async (producto) =>{
-    try{
-      const respuesta = await fetch('https://683f863e5b39a8039a54d90b.mockapi.io/products/productos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(producto)
-      })
-      if(!respuesta.ok){
-        throw new Error('Error al agregar producto')
-      }
-      
-      const data = await respuesta.json()
-      alert ('Producto agregado correctamente')
-
-    }catch(error){
-      console.log(error.message);
-    }
-  }
-
-
-
+  const {
+    products,
+    loading,
+    open,
+    setOpen,
+    error,
+    openEditor,
+    setOpenEditor,
+    seleccionado,
+    setSeleccionado,
+    agregarProducto,
+    actualizarProducto,
+    eliminarProducto,
+    handleLogout,
+  } = useContext(AdminContext);
+  
+  
+  
   return (
     <div className="admin-container">
       <nav className="admin-nav">
-        <ul className="nav-list">
-          <li>
-            <a href="/admin" className="nav-link">
-              Panel Admin
-            </a>
-          </li>
-        </ul>
-        <button className="logout-button" title="Cerrar sesión">
-          <i className="fa-solid fa-right-from-bracket"></i>
+        <h1 className="admin-nav-title">Panel Administrativo</h1>
+        <button className="logout-button" onClick={handleLogout} title="Cerrar sesión">
+          <FontAwesomeIcon icon={faRightFromBracket} />
         </button>
       </nav>
 
-      <h1 className="admin-title">Panel Administrativo</h1>
+      <main className="admin-content">
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <p>Cargando productos...</p>
+          </div>
+        ) : error ? (
+          <div className="error-container">
+            <p>Error al cargar los productos</p>
+            <button onClick={() => window.location.reload()} className="reload-button">
+              Reintentar
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="products-header">
+              <h2>Lista de Productos ({products.length})</h2>
+              <button
+                className="add-product-button"
+                onClick={() => setOpen(true)}
+              >
+                <FontAwesomeIcon icon={faPlus} /> Nuevo Producto
+              </button>
+            </div>
 
-       {loading ? (
-        <p className="loading-text">Cargando...</p>
-      ) : error ? (
-        <p className="error-text">Error al cargar los datos.</p>
-      ) : (
+            <div className="products-grid">
+              {products.map((product) => (
+                <div key={product.id} className="product-card">
+                  <div className="product-image-container">
+                    <img src={product.imagen} alt={product.nombre} className="product-image" />
+                  </div>
+                  <div className="product-details">
+                    <h3 className="product-name">{product.nombre}</h3>
+                    <div className="product-info-row">
+                      <span className="product-price">${product.precio}</span>
+                      <span className="product-stock">{product.stock} unidades</span>
+                    </div>
+                    <div className="product-actions">
+                      <button className="edit-button" onClick={() => {
+                        setSeleccionado(product);
+                        setOpenEditor(true);
+                      }}
+                      >
+                        <FontAwesomeIcon icon={faEdit} /> Editar
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => eliminarProducto(product.id)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} /> Eliminar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
 
-        <ul className="product-list">
-          {products.map((product) => (
-            <li key={product.id} className="product-item">
-              <img
-                src={product.imagen}
-                alt={product.nombre}
-                className="product-image"
+        {open && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <FormularioProducto onAgregar={agregarProducto} onClose={() => setOpen(false)} />
+            </div>
+          </div>
+        )}
+
+        {openEditor && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <FormularioEdicion
+                productoSeleccionado={seleccionado}
+                onActualizar={actualizarProducto}
+                onClose={() => {
+                  setOpenEditor(false);
+                  setSeleccionado(null);
+                }}
               />
-              <div className="product-info">
-                <p className="product-name">{product.nombre}</p>
-                <p className="product-price">${product.precio}</p>
-              </div>
-              <div className="product-actions">
-                <button className="edit-button">Editar</button>
-                <button className="delete-button">Eliminar</button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-      <button onClick={()=> setOpen(true)}>*</button>
-      {open && (<FormularioProducto onAgregar={agregarProducto}/>)}
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };
