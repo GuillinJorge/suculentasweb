@@ -35,8 +35,7 @@ main img {
 }
 
 .remove-bg {
-    filter: brightness(1.1);
-    mix-blend-mode: multiply;
+    
     width: 300px;
   height: 300px;
    
@@ -231,7 +230,7 @@ main img {
 /* Lista de Productos para */
 .featured-products-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 30px;
   max-width: 1200px;
@@ -242,7 +241,7 @@ main img {
 /* Adaptación para ProductList cuando muestra los destacados */
 .featured-products-container .product-grid {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 30px;
   width: 100%;
@@ -286,3 +285,25 @@ main img {
   }
 }
 
+/* Estilos para las secciones de preview */
+.about-preview, 
+.faq-preview, 
+.contact-preview {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  margin: 20px 0;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.contact-email {
+  font-weight: bold;
+  color: #4CAF50;
+  margin: 10px 0;
+}

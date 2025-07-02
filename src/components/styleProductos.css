@@ -289,6 +289,7 @@
   margin: 1rem 0;
   width: 75%;
   box-sizing: border-box;
+  
 }
 
 .busqueda-input {
@@ -308,4 +309,35 @@
   border-radius: 6px;
   padding: 0.5rem 1rem;
   cursor: pointer;
+}
+
+/* Añade esto a tu styleProductos.css */
+.card {
+  transition: none !important; /* Desactiva transiciones CSS para dejar que Framer Motion controle */
+}
+
+.qtyButton {
+  cursor: pointer;
+  transition: none !important;
+}
+
+/* Para el efecto de hover en la imagen */
+.imagenContainer {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.card {
+  will-change: transform, opacity; /* Optimización para animaciones */
+}
+
+/* Para el efecto de carga de imágenes */
+.imagen {
+  transition: opacity 0.3s ease;
+}
+
+/* Mejora visual para los botones */
+.qtyButton {
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }

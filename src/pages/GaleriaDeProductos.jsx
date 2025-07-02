@@ -61,7 +61,7 @@ const GaleriaDeProductos = () => {
         <h1>Tienda 🛒</h1>
         <p>Estos son nuestros productos más destacados</p>
 
-          <h3>Usa nuestra barra de busqueda para buscar más rápido</h3>
+          <h3>Busca tu producto favorito más rapido ⬇️ </h3>
         {/* 🔍 Búsqueda */}
         <div className="busqueda-container">
           <input
