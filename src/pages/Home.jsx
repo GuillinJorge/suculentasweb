@@ -154,7 +154,7 @@ const HeroSection = () => (
   <section className="hero-section">
     <motion.img
       className="remove-bg"
-      src="./public/logo_ppal.png"
+      src="/logo_ppal.png"
       alt="SuculentasWeb"
       initial={{ scale: 0.9 }}
       animate={{ scale: 1 }}
